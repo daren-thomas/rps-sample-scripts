@@ -5,6 +5,7 @@ A collection of sample scripts for the RevitPythonShell (https://code.google.com
 
 This is a repository for short RPS scripts that have no other place to stay.
 
+  * exportImage.py - export the currently visible view as a PNG image
   * revitsnoop.py - interface to the RevitLookup tool by Jeremy Tammik
 
 Dwane Stairmand posted some scripts to the RevitPythonShell user group (http://groups.google.com/group/RevitPythonShell)
