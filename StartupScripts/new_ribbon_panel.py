@@ -64,15 +64,58 @@ def add_radio_group(panel):
 
 
 def add_push_button(panel):
-    pass
+    """add push button"""
+    push_button = panel.AddItem(
+        PushButtonData("pb_HelloWorld", "Hello, world!",
+                       DLL_PATH, "HelloWorld"))
+    push_button.ToolTip = "Say hello world"
+    context_help = ContextualHelp(ContextualHelpType.Url, "http://www.autodesk.com")
+    push_button.SetContextualHelp(context_help)
+
+    push_button.LargeImage = BitmapImage(Uri(LARGE_IMG_PATH))
+    push_button.Image = BitmapImage(Uri(SMALL_IMG_PATH))
 
 
 def add_split_button(panel):
-    pass
+    """add a split button"""
+    button_one = PushButtonData("pbButtonOne", "Option one",
+                                DLL_PATH, "HelloWorld")
+    button_one.LargeImage = BitmapImage(Uri(LARGE_IMG_PATH))
+    button_one.Image = BitmapImage(Uri(SMALL_IMG_PATH))
+
+    button_two = PushButtonData("pbButtonTwo", "Option two",
+                                DLL_PATH, "HelloWorld")
+    button_two.LargeImage = BitmapImage(Uri(LARGE_IMG_PATH))
+    button_two.Image = BitmapImage(Uri(SMALL_IMG_PATH))
+
+    button_three = PushButtonData("pbButtonThree", "Option three",
+                                DLL_PATH, "HelloWorld")
+    button_three.LargeImage = BitmapImage(Uri(LARGE_IMG_PATH))
+    button_three.Image = BitmapImage(Uri(SMALL_IMG_PATH))
+
+    split_button = panel.AddItem(SplitButtonData("splitButton", "Split"))
+    split_button.AddPushButton(button_one)
+    split_button.AddPushButton(button_two)
+    split_button.AddPushButton(button_three)
 
 
 def add_stacked_buttons(panel):
-    pass
+    """Add a text box and combo box as stacked items"""
+    combo_box_data = ComboBoxData("comboBox")
+    text_data = TextBoxData("Text Box")
+    text_data.Image = BitmapImage(Uri(SMALL_IMG_PATH))
+    text_data.Name = "Text Box"
+    text_data.ToolTip = "Enter some text here"
+    text_data.LongDescription = """This is text that will appear next to the image when the user hovers the mouse over the control"""
+    text_data.ToolTipImage = BitmapImage(Uri(LARGE_IMG_PATH))
+
+    stacked_items = panel.AddStackedItems(text_data, combo_box_data)
+
+    text_box = stacked_items[0]
+    text_box.PromptText = "Enter a comment"
+    text_box.ShowImageAsButton = True
+    text_box.ToolTip = "Enter some text"
+    text_box.EnterPressed += lambda sender, args: TaskDialog.Show('new_ribbon_panel', sender.Value)
 
 
 def add_slide_out(panel):
