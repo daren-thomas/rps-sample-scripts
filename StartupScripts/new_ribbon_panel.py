@@ -21,6 +21,7 @@ from Autodesk.Revit.UI import *
 SCRIPT_PATH = os.path.join(__vars__['EXAMPLES_PATH'], "helloworld.py")
 LARGE_IMG_PATH = os.path.join(__vars__['EXAMPLES_PATH'], "PythonScript32x32.png")
 SMALL_IMG_PATH = os.path.join(__vars__['EXAMPLES_PATH'], "PythonScript16x16.png")
+EXAMPLES_PATH = __vars__['EXAMPLES_PATH']
 DLL_PATH = os.path.expandvars(r"%APPDATA%\RevitPythonShell2015\simple_ribbon.dll")
 print 'storing external command assembly here:', DLL_PATH
 
@@ -45,17 +46,17 @@ def add_radio_group(panel):
 
     tb1 = ToggleButtonData("toggleButton1", "Red")
     tb1.ToolTip = "Red Option"
-    tb1.LargeImage = BitmapImage(Uri(LARGE_IMG_PATH))
+    tb1.LargeImage = BitmapImage(Uri(os.path.join(EXAMPLES_PATH, 'StartupScripts', 'red.png')))
     tb1.Image = BitmapImage(Uri(SMALL_IMG_PATH))
 
     tb2 = ToggleButtonData("toggleButton2", "Green")
     tb2.ToolTip = "Green Option"
-    tb2.LargeImage = BitmapImage(Uri(LARGE_IMG_PATH))
+    tb2.LargeImage = BitmapImage(Uri(os.path.join(EXAMPLES_PATH, 'StartupScripts', 'green.png')))
     tb2.Image = BitmapImage(Uri(SMALL_IMG_PATH))
 
     tb3 = ToggleButtonData("toggleButton3", "Blue")
     tb3.ToolTip = "Blue Option"
-    tb3.LargeImage = BitmapImage(Uri(LARGE_IMG_PATH))
+    tb3.LargeImage = BitmapImage(Uri(os.path.join(EXAMPLES_PATH, 'StartupScripts', 'blue.png')))
     tb3.Image = BitmapImage(Uri(SMALL_IMG_PATH))
 
     radio_button_group.AddItem(tb1)
