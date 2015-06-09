@@ -22,6 +22,21 @@ Dwane Stairmand posted some scripts to the RevitPythonShell user group (http://g
   * TextUpper.py - text to upper-case (selected)
   * TextUpperAll.py - text to upper-case (all)
 
+# StartupScripts
+
+The folder `StartupScripts` contains some examples of using the startup script
+functionality in RPS. The blog post [More control over the RibbonPanel in RevitPythonShell](http://darenatwork.blogspot.ch/2016/03/more-control-over-ribbonpanel-in.html)
+contains a description of how these work:
+
+  * simple_ribbon.py - create a new `RibbonPanel` programatically and add a `PushButton`
+  * simple_ribbon_with_icon.py - same as above, but assign an icon to the `PushButton` 
+  * new_ribbon_panel.py - an elaborate demo of messing with the `RibbonPanel`
+
+# RpsAddIns
+
+The folder `RpsAddIns` contains some examples of using the "Deploy RpsAddIn" functionality
+
+  * NewRibbonPanel - wrap up the startup script example `new_ribbon_panel.py` as a plugin
 
 # License & Credit
 

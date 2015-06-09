@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<RpsAddin>
+  <StartupScript src="../../StartupScripts/new_ribbon_panel.py"/>
+  <Files>
+      <File src="../../StartupScripts/a.png"/>
+      <File src="../../StartupScripts/b.png"/>
+      <File src="../../StartupScripts/blue.png"/>
+      <File src="../../StartupScripts/c.png"/>
+      <File src="../../StartupScripts/green.png"/>
+      <File src="../../StartupScripts/one.png"/>
+      <File src="../../StartupScripts/one_small.png"/>
+      <File src="../../StartupScripts/red.png"/>
+      <File src="../../StartupScripts/three.png"/>
+      <File src="../../StartupScripts/three_small.png"/>
+      <File src="../../StartupScripts/two.png"/>
+      <File src="../../StartupScripts/two_small.png"/>
+  </Files>
+</RpsAddin>
