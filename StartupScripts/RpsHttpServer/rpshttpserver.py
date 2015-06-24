@@ -95,7 +95,7 @@ def get_schedules(args, uiApplication):
 
 
 class RpsServer(object):
-    def __init__(self, externalEvent, contexts, port=8010):
+    def __init__(self, externalEvent, contexts, port=8080):
         self.port = port
         self.externalEvent = externalEvent
         self.contexts = contexts
