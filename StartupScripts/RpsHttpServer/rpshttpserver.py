@@ -11,7 +11,6 @@ from System.Threading import Thread, ThreadStart
 from System.Text import Encoding
 
 from Autodesk.Revit.UI import ExternalEvent, IExternalEventHandler
-from Autodesk.Revit.DB import ViewSchedule, FilteredElementCollector
 
 def main():
     try:
@@ -74,24 +73,53 @@ class RpsEventHandler(IExternalEventHandler):
                     rc = 404
                     ct = 'text/plain'
                     data = traceback.format_exc()
-                response = context.Response
-                response.ContentType = ct
-                response.StatusCode = rc
-                buffer = Encoding.UTF8.GetBytes(data)
-                response.ContentLength64 = buffer.Length
-                output = response.OutputStream
-                output.Write(buffer, 0, buffer.Length)
-                output.Close()
+                if rc == 302:
+                    context.Response.Redirect('/'.join(request.RawUrl.split('/')[:2]) + '/' + data)
+                else:
+                    response = context.Response
+                    response.ContentType = ct
+                    response.StatusCode = rc
+                    buffer = Encoding.UTF8.GetBytes(data)
+                    response.ContentLength64 = buffer.Length
+                    output = response.OutputStream
+                    output.Write(buffer, 0, buffer.Length)
+                    output.Close()
         except:
             traceback.print_exc()
 
 def get_schedules(args, uiApplication):
     '''add code to get a specific schedule by name here'''
     print 'inside get_schedules...'
+    from Autodesk.Revit.DB import ViewSchedule
+    from Autodesk.Revit.DB import FilteredElementCollector
+    from Autodesk.Revit.DB import ViewScheduleExportOptions
+    import tempfile, os, urllib
+
     doc = uiApplication.ActiveUIDocument.Document
     collector = FilteredElementCollector(doc).OfClass(ViewSchedule)
-    names = [vs.Name for vs in list(collector)]
-    return 200, 'text/plain', '\n'.join(names)
+    schedules = {vs.Name: vs for vs in list(collector)}
+
+    if len(args):
+        # export a single schedule
+        schedule_name = urllib.unquote(args[0])
+        if not schedule_name.lower().endswith('.csv'):
+            return 302, None, schedule_name + '.csv'
+        schedule_name = schedule_name[:-4]
+        if not schedule_name in schedules.keys():
+            return 404, 'text/plain', 'Schedule not found: %s' % schedule_name
+        schedule = schedules[schedule_name]
+        fd, fpath = tempfile.mkstemp(suffix='.csv')
+        os.close(fd)
+        dname, fname = os.path.split(fpath)
+        opt = ViewScheduleExportOptions()
+        opt.FieldDelimiter = ', '
+        schedule.Export(dname, fname, opt)
+        with open(fpath, 'r') as csv:
+            result = csv.read()
+        os.unlink(fpath)
+        return 200, 'text/csv', result
+    else:
+        return 200, 'text/plain', '\n'.join(schedules.keys())
 
 
 class RpsServer(object):
