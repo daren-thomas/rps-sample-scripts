@@ -87,6 +87,9 @@ class RpsEventHandler(IExternalEventHandler):
         except:
             traceback.print_exc()
 
+    def GetName(self):
+        return "RpsEventHandler"
+
 def get_schedules(args, uiApplication):
     '''add code to get a specific schedule by name here'''
     print 'inside get_schedules...'
@@ -144,9 +147,11 @@ class RpsServer(object):
             waiting = False
             while self.running:
                 if not waiting:
+                    print 'not waiting'
                     context = self.listener.BeginGetContext(
                         AsyncCallback(self.handleRequest),
                         self.listener)
+                    print 'after BeginGetContext'
                 waiting = not context.AsyncWaitHandle.WaitOne(100)
         except:
             traceback.print_exc()
@@ -161,6 +166,7 @@ class RpsServer(object):
         '''
         pass the request to the RevitEventHandler
         '''
+        print "in handleRequest"
         try:
             listener = result.AsyncState
             if not listener.IsListening:
